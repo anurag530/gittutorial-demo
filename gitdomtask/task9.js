@@ -9,63 +9,44 @@ itemList.addEventListener('click', removeItem);
 // Filter event
 filter.addEventListener('keyup', filterItems);
 
-// // page load
-// var arr=['Item5','Item6','Item7','Item8','Item9'];
-// for(var i=0;i<5;i++){
-// // Create new li element
-// var li = document.createElement('li');
-// // Add class
-// li.className = 'list-group-item';
-// // Add text node with input value
-// li.appendChild(document.createTextNode(arr[i]));
-
-// // Create del button element
-// var deleteBtn = document.createElement('button');
-//  var editBtn =document.createElement('button');
-// // Add classes to del button
-// deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
-//  editBtn.className = 'btn btn-green btn-sm float-right edit';
-
-// // Append text node
-// deleteBtn.appendChild(document.createTextNode('X'));
-//  editBtn.appendChild(document.createTextNode('edit'));
-// // Append button to li
-// li.appendChild(deleteBtn);
-// li.appendChild(editBtn);
-// // Append li to list
-// itemList.appendChild(li);
-// }
-
-
 // Add item
 function addItem(e){
   e.preventDefault();
 
   // Get input value
-  var newItem = document.getElementById('item').value;
+  var newItem1 = document.getElementById('item').value;
+   var newItem = document.getElementById('description').value;
+
 
   // Create new li element
   var li = document.createElement('li');
+  //var li = document.createElement('li');
   // Add class
   li.className = 'list-group-item';
+  //li.className = 'list-group-item';
   // Add text node with input value
-  li.appendChild(document.createTextNode(newItem));
+  (newItem1 != null ) ? li.appendChild(document.createTextNode(newItem1)):'';
+  (newItem != null ) ? li.appendChild(document.createTextNode(newItem)):'';
+  //newItem1 ? li.appendChild(document.createTextNode(newItem));
 
   // Create del button element
   var deleteBtn = document.createElement('button');
-  
+   var editBtn = document.createElement('button');
+
+
   // Add classes to del button
   deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
-  
+  editBtn.className = 'btn btn-green btn-sm float-right edit';
 
   // Append text node
   deleteBtn.appendChild(document.createTextNode('X'));
-   
+   editBtn.appendChild(document.createTextNode('edit'));
   // Append button to li
   li.appendChild(deleteBtn);
+  li.appendChild(editBtn);
   // Append li to list
   itemList.appendChild(li);
-  
+  //itemList.appendChild(li);
 }
 
 // Remove item
@@ -86,7 +67,10 @@ function filterItems(e){
   var items = itemList.getElementsByTagName('li');
   // Convert to an array
   Array.from(items).forEach(function(item){
-    var itemName = item.firstChild.textContent;
+  //  var itemName = item.firstChild.textContent;  wholeText
+
+  var itemName = item.firstChild.wholeText;  
+  
     if(itemName.toLowerCase().indexOf(text) != -1){
       item.style.display = 'block';
     } else {
